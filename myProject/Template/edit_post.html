@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Post</title>
+</head>
+<body>
+
+<h2>Edit Post: {{ post.rent_title }}</h2>
+
+{% if form.errors %}
+  <p style="color: red;">Please correct the error{{ form.errors|pluralize }} below.</p>
+{% endif %}
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button type="submit">Save changes</button>
+</form>
+
+</body>
+</html>

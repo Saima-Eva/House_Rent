@@ -1,0 +1,86 @@
+{% extends "dashboard.html" %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rent Application</title>
+    <style>
+       
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="file"] {
+            margin-top: 8px;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <h1>Apply for tolet {{ rent.rent_title }}</h1>
+
+        <label for="full_name">Full Name:</label>
+        <input type="text" id="full_name" name="full_name" required>
+
+        <label for="permanent_address">Permanent Address:</label>
+        <textarea id="permanent_address" name="permanent_address" rows="4" required></textarea>
+
+        <label for="contact_number">Contact Number:</label>
+        <input type="tel" id="contact_number" name="contact_number" required>
+
+        <label for="qualification">Qualification:</label>
+        <input type="text" id="qualification" name="qualification" required>
+
+        <label for="nid">NID:</label>
+        <input type="text" id="nid" name="nid" required>
+
+        <label for="nid_image">NID Image (Upload):</label>
+        <input type="file" id="nid_image" name="nid_image" accept="image/*" required>
+
+        <!-- Add more fields as needed -->
+
+        <button type="submit">Apply</button>
+    </form>
+
+</body>
+</html>
+
+{% endblock content %}

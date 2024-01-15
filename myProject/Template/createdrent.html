@@ -1,0 +1,63 @@
+{% extends "dashboard.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+</head>
+<body>
+
+<h2>My Posts</h2>
+
+<table>
+  <tr>
+    <th>Rent Title</th>
+    <th>Location</th>
+    <th>Created Time</th>
+    <th>Update Time</th>
+    <th>Image</th>
+    <th>Action</th>
+  </tr>
+  {% for i in creator%}
+  <tr>
+    <td>{{i.rent_title}}</td>
+    <td>{{i.location}}</td>
+    <td>{{i.create_at}}</td>
+    <td>{{i.update_at}}</td>
+    <td><img class="companyLogo" src="/{{i.homePicture}}" alt="Home Picture" width="100px"></td>
+    <td>
+        <a href="{% url "editPage" i.id %}">Edit</a>
+        <a href="{% url "deletePage" i.id %}">Delete</a>
+        {% if i.id %}
+            <a href="{% url 'post_details' i.id %}">Applicant</a>
+        {% else %}
+            No ID available
+        {% endif %}
+    </td>
+  </tr>
+  {% endfor%}
+</table>
+
+</body>
+</html>
+
+
+
+{% endblock content %}

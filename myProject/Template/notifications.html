@@ -1,0 +1,25 @@
+{% extends "dashboard.html" %}
+{% load static %}
+{% load notifications_tags %}
+
+{% block content %}
+
+{% notifications_unread as count %}
+<section class="rent-listings"> 
+    <h2>Latest Rent Listings</h2> 
+    <ul> 
+        {% if count %}
+        {% for notification in request.user.notifications.unread %}
+        <li>
+            <p>{{notification}}</p>
+        </li> 
+        {% endfor %}
+        {% else %}
+        <li>
+            <p>No Notification</p>
+        </li> 
+        {% endif %}
+    </ul> 
+</section> 
+
+{% endblock content %}

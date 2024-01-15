@@ -1,0 +1,121 @@
+{% extends "dashboard.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .profile-container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .profile-header {
+            text-align: center;
+            padding: 20px;
+            background-color: #3498db;
+            color: #fff;
+        }
+
+        .profile-picture {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 5px solid #fff; /* Add border to profile picture */
+        }
+
+        h1, p {
+            margin: 10px 0;
+        }
+
+        .edit-profile-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #2ecc71;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .edit-profile-button:hover {
+            background-color: #27ae60;
+        }
+        
+
+        .profile-info {
+            padding: 20px;
+        }
+
+        .profile-info h2 {
+            margin-bottom: 10px;
+        }
+
+        .skills-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .skills-list li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="profile-container">
+    <div class="profile-header">
+        
+        {% if user.user_type == 'profile' %}
+
+        <img class="profile-picture" src="/{{request.user.profile_picture}}" alt="My Profile Picture">
+
+        {% endif %}
+        {% if messages %}
+        {% for message in messages %}
+        {% if message.tags == 'success' %}
+        <p> {{message}}</p>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+        
+        <h1>{{ request.user.username }}</h1>
+        <p>{{ request.user.display_name }}</p>
+        <p>{{ request.user.about }}</p>
+        <p>{{ request.user.email }}</p>
+        <a href="{% url 'EditProfilePage' %}" class="edit-profile-button">Edit Profile</a>
+        <a href="{% url 'changePasswordPage' %}" class="edit-profile-button">Change Password</a>
+        <a href="{% url 'createdrentByProfile' %}" class="edit-profile-button">Created Rent</a>
+
+    </div>
+
+    <div class="profile-info">
+        <h2>User Type: {{ request.user.user_type }}</h2>
+
+        {% if user.user_type == 'profile' %}
+            <p>NID: {{ user.profileprofile.nid }}</p>
+        {% endif %}
+    </div>
+</div>
+
+</body>
+</html>
+
+{% endblock content %}

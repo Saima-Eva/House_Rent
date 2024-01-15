@@ -1,0 +1,25 @@
+{% extends "dashboard.html" %}
+
+{% block content %}
+  <h2>Applied Posts</h2>
+  <ul>
+    {% for applied_rent in applied_rents %}
+      <li>
+        <p>Rent Description: {{ applied_rent.rent.rentDescription }}</p>
+        <p>Deadline: {{ applied_rent.rent.deadline }}</p>
+        <p>Home Picture: <img class="homePicture" src="{{ applied_rent.rent.homePicture.url }}" alt="Home Picture"></p>
+        <p>Create By: {{ applied_rent.rent.rent_creator }}</p>
+        <p>Create Time: {{ applied_rent.rent.create_at }}</p> 
+        <p>Update Time: {{ applied_rent.rent.update_at }}</p>
+
+        <!-- Add the delete form with a button -->
+        <form method="post" action="{% url 'applied_rents' %}">
+          {% csrf_token %}
+          <input type="hidden" name="rent_apply_id" value="{{ applied_rent.id }}">
+          <button type="submit">Delete</button>
+        </form>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock content %}
+

@@ -1,0 +1,212 @@
+{% load static %}
+{% load notifications_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="Free Web tutorials">
+    <meta name="keywords" content="HTML, CSS, JavaScript">
+    <meta name="author" content="maheraj">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HomeFlow</title>
+    <!-- Favicon -->
+    <!-- <link href="" rel="icon" /> -->
+
+
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Bootstrap stylesheet -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
+    
+    <!-- Stylesheet -->
+    <!-- <link rel="stylesheet" href="assets/css/style.css"> -->
+
+    <!-- Responsive stylesheet -->
+    <!-- <link rel="stylesheet" href="assets/css/responsive.css"> -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header styling */
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #00bcd4;
+        }
+
+        .navbar .language {
+            border: 1px solid black;
+            border-radius: 5px;
+        }
+
+        .left-section {
+            display: flex;
+            align-items: center;
+        }
+
+        .right-section {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar a {
+            color: #000;
+            text-decoration: none;
+            margin: 0px 30px;
+        }
+        .post-ad {
+          background-color:  orange;
+          border-radius: 5px;
+          padding: 5px;
+          
+        }
+
+    </style>
+</head>
+<body>
+    {% block content %}
+
+    <nav class="navbar">
+        <div class="left-section">
+            <div class="ads">
+                <a href="{% url 'dashboardPage' %}">HomeFlow</a>
+            </div>
+
+            <div class="ads">
+                <a href="{% url 'viewrentPage' %}">All Ads</a>
+            </div>
+
+            <div class="language">
+                <a href="#">বাংলা</a>
+            </div>
+        </div>
+
+        <div class="right-section">
+            {% if user.is_authenticated %}
+                <div class="chat-icon">
+                    <a href="{% url 'chatPage' %}"><i class="fas fa-comment"></i> Chat</a>
+                </div>
+
+                <div class="dropdown">
+                    <button class="btn " type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-bell notification-icon"></i>
+                    </button>
+                    {% notifications_unread as count %}
+                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                        <a class="dropdown-item" href="{% url 'notifications_page' %}">
+                            Notification {% if count %}({{ count }}){% else %}(0){% endif %}
+                        </a>
+                    </div>
+                </div>
+                
+
+                <div class="my-account">
+                    <a href="{% url 'myaccount' %}"><i class="fa-solid fa-user"></i> My Account</a>
+                </div>
+
+                <div class="post-ad">
+                    <a href="{% url 'add_rent_Page' %}">Post Your Ad</a>
+                </div>
+
+            {% else %}
+                <div class="chat-icon">
+                    <a href="#" id="loginBtn" data-bs-toggle="modal" data-bs-target="#loginModal"><i class="fas fa-comment"></i> Chat</a>
+                </div>
+
+                <div class="my-account">
+                    <a href="#" id="loginBtn" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
+                </div>
+
+                <div class="post-ad">
+                    <a href="#" id="loginBtn" data-bs-toggle="modal" data-bs-target="#loginModal">Post Your Ad</a>
+                </div>
+            {% endif %}
+        </div>
+        <!-- Login Modal -->
+        <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="loginModalLabel">Welcome to HomeFlow!</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <!-- Left side: Login Form -->
+                            <div class="col-md-7">
+                                <div class="additional-info">
+                                    <div class="chat-icon">
+                                        <p>Log in to manage your account</p>
+                                    </div>
+
+                                    <div class="chat-icon m-3">
+                                        <i class="fa-solid fa-file-pen"></i> start posting your own ads
+                                    </div>
+                                    <div class="chat-icon m-3">
+                                        <i class="fa-solid fa-thumbs-up"></i> Apply ads, and view them in the favorite section.
+                                    </div>
+                                    <div class="chat-icon m-3">
+                                        <i class="fa-regular fa-pen-to-square"></i> View and manage your ads at your convenience.
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Right side: Additional Information -->
+
+                            <div class="col-md-5">
+                                <form action=" {% url 'signinPage' %} " method="post">
+                                    {% csrf_token %}
+                                    <div class="mb-3">
+                                        <label for="username" class="form-label">Username</label>
+                                        <input type="text" class="form-control" id="username" name="username" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="password" class="form-label">Password</label>
+                                        <input type="password" class="form-control" id="password" name="password" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Login</button>
+                                </form>
+                            </div>
+                            <div>
+                                <a href="{% url 'signupPage' %}" class="create-account-button bg-info p-2 rounded-1">Create an Account</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
+
+
+
+{% endblock content %}
+
+
+
+
+
+
+
+
+

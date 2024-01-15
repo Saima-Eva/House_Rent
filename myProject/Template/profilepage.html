@@ -1,0 +1,46 @@
+{% include "navbar.html" %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <!-- Left column content if needed -->
+        </div>
+        <div class="col-md-6">
+            <div class="profile-container">
+                <div class="profile-header">
+                    <h1>My Profile</h1>
+                </div>
+
+                <div class="profile-content">
+                    <div class="profile-column">
+                        <h2>Account</h2>
+                        <ul>
+                            <li><strong>User ID:</strong> {{ request.user.id }}</li>
+                            <li><strong>Display Name:</strong> {{ request.user.display_name }}</li>
+                            <li><strong>Email:</strong> {{ request.user.email }}</li>
+                        </ul>
+                    </div>
+
+                    <div class="profile-column">
+                        <h2>Personal Information</h2>
+                        <ul>
+                            <li><strong>Full Name:</strong> {{ request.user.get_full_name }}</li>
+                            {% if  request.user.profile_picture %}
+                            <li><strong>Profile Picture:</strong> <img src="{{ request.user.profile_picture.url }}" alt="Profile Picture" style="max-width: 200px;"></li>
+                            {% endif %}
+                            
+
+                            <li><strong>About:</strong> {{ request.user.about }}</li>
+                            {% if request.user.profileProfile %}
+                                <li><strong>NID:</strong> {{ request.user.profileProfile.nid }}</li>
+                            {% else %}
+                                <li><strong>NID:</strong> No NID</li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

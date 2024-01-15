@@ -1,0 +1,93 @@
+{% extends "dashboard.html" %}
+
+{% block content %}
+<section class="rent-listings"> 
+    <h2>Latest Rent Listings</h2> 
+    <ul> 
+        {% for i in rent %}
+        <li> 
+            <h3>{{i.rent_title}}</h3>
+
+            <!-- Add class and onmouseover/onmouseout events to the image -->
+            <p><img class="homePicture" src="/{{i.homePicture}}" alt="Home Picture" onmouseover="zoomIn(this)" onmouseout="zoomOut(this)"></p>
+
+            <p>Location: {{i.location}}</p> 
+            <div class="description-container">
+                <p class="short-description">Home Description:
+                    {% if i.homeDescription|length > 60 %}
+                        {{ i.homeDescription|slice:":60" }}... 
+                        <a href="#" onclick="toggleDescription('{{ i.homeDescription|escapejs }}')">Read More</a>
+                    {% else %}
+                        {{ i.homeDescription }}
+                    {% endif %}
+                </p>
+                <p class="full-description" style="display: none;">{{ i.homeDescription }}</p>
+            </div>
+
+            <p>Rent Description: {{i.rentDescription}}</p>
+            <p>Deadline: {{i.deadline}}</p>
+            <p>Create By: {{i.rent_creator}}</p>
+            <p>Create Time: {{i.create_at}}</p> 
+            <p>Update Time: {{i.update_at}}</p>
+
+            {% if user.id != i.rent_creator.id %}
+            {% if user.is_authenticated %}
+                {% if i.is_applied %}
+                    <button class="not-working-button bg-secondary" disabled>Applied</button>
+                {% else %}
+                    <a href="{% url 'applyPage' i.id %}">Apply Now</a>
+                {% endif %}
+            {% else %}
+                <a href="{% url 'signinPage' %}">Sign In to Apply</a>
+            {% endif %}
+            {% endif %}
+
+
+            {% if user.id == i.rent_creator.id %}
+            <a href="{% url 'editPage' i.id %}">Edit</a> 
+            <a href="{% url 'deletePage' i.id %}">Delete</a> 
+            {% endif %}
+
+        </li> 
+        {% endfor %}
+    </ul> 
+</section> 
+
+<script>
+    function toggleDescription(fullDescription) {
+        var shortDescription = document.querySelector('.short-description');
+        var fullDescriptionElement = document.querySelector('.full-description');
+
+        if (shortDescription.style.display !== 'none') {
+            shortDescription.style.display = 'none';
+            fullDescriptionElement.innerHTML = fullDescription;
+            fullDescriptionElement.style.display = 'block';
+        } else {
+            shortDescription.style.display = 'block';
+            fullDescriptionElement.style.display = 'none';
+        }
+    }
+
+    // JavaScript functions for image zoom on hover
+    function zoomIn(img) {
+        img.classList.add('zoomed');
+    }
+
+    function zoomOut(img) {
+        img.classList.remove('zoomed');
+    }
+</script>
+
+<style>
+    /* CSS for initial and zoomed image sizes */
+    .homePicture {
+        max-width: 150px;
+        transition: max-width 0.3s;
+    }
+
+    .zoomed {
+        max-width: 300px;
+    }
+</style>
+
+{% endblock content %}

@@ -1,0 +1,42 @@
+{% extends "dashboard.html" %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rent Application Form</title>
+</head>
+<body>
+
+    <form action="{% url 'add_rent_Page' %}" method='POST'enctype="multipart/form-data" class="form-group">
+        {% csrf_token %}
+        <label for="rent_title">Rent Title:</label>
+        <input type="text" id="rent_title" name="rent_title" required>
+
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location" required>
+
+        <label for="homeDescription">Home Description:</label>
+        <textarea id="homeDescription" name="homeDescription" rows="4" required></textarea>
+
+        <label for="rentDescription">Rent Description:</label>
+        <textarea id="rentDescription" name="rentDescription" rows="4" required></textarea>
+
+        <label for="deadline">Deadline:</label>
+        <textarea id="deadline" name="deadline" required></textarea>
+
+        <label for="homePicture">Home Picture:</label>
+        <input type="file" id="homePicture" name="homePicture">
+        
+
+        <button type="submit">Create a New Rent</button>
+    </form>
+
+</body>
+</html>
+
+
+{% endblock content %}

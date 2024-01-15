@@ -1,0 +1,38 @@
+{% include "navbar.html" %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ post.rent_title }} Details</title>
+</head>
+<body>
+    <div class="container">
+    
+    <h2>Post Details:</h2>
+    <p>Title: {{ post.rent_title }}</p>
+    <p>Location: {{ post.location }}</p>
+    <!-- Add more details as needed -->
+
+    <h2>Applicants:</h2>
+    {% for applicant in applicants %}
+        <p>Applicant: {{ applicant.applicant.display_name }}</p>
+        <p>NID Number: {{ applicant.nid }}</p>
+        <p>NID Front Image: {{ applicant.nid_image.url }}</p>
+        
+        <!-- Assuming there is a method get_applicant_profile in rentApplyModel -->
+        {% with applicant_profile=applicant.get_applicant_profile %}
+            <p>Full Name: {{ applicant_profile.full_name }}</p>
+            <p>Permanent Address: {{ applicant_profile.permanent_address }}</p>
+            <p>Contact Number: {{ applicant_profile.contact_number }}</p>
+            <p>Qualification: {{ applicant_profile.qualification }}</p>
+        {% endwith %}
+        <!-- Add more details as needed -->
+    {% endfor %}
+    </div>
+    
+</body>
+</html>
+{% endblock content %}

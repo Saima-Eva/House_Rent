@@ -1,0 +1,83 @@
+{% extends "dashboard.html" %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rent Application Form</title>
+    <style>
+    
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <form action="{% url "updatePage" %}" method='POST' enctype="multipart/form-data" class="form-group">
+        {% csrf_token %}
+        {% for i in rent %}
+        <label for="rent.rent_title">rent ID:</label>
+        <input type="text" value="{{i.id}}" id="rent_title" name="rentid" required>
+
+        <label for="rent_title">Rent Title:</label>
+        <input type="text" value="{{i.rent_title}}" id="rent_title" name="rent_title" required>
+
+        <label for="location">Location:</label>
+        <input type="text" value="{{i.location}}" id="location" name="location" required>
+
+        <label for="homeDescription">Home Description:</label>
+        <textarea id="homeDescription"  name="homeDescription" rows="4" required>{{i.homeDescription}}</textarea>
+
+        <label for="rentDescription">Rent Description:</label>
+        <textarea id="rentDescription"  name="rentDescription" rows="4" required>{{i.rentDescription}}</textarea>
+
+        <label for="deadline">Deadline:</label>
+        <textarea id="deadline"  name="deadline" required>{{i.deadline}}</textarea>
+
+        <label for="homePicture">Home Picture:</label>
+        <input type="file" id="homePicture" name="homePicture">
+
+        <button type="submit">Update the rent</button>
+        {% endfor %}
+    </form>
+
+</body>
+</html>
+
+
+{% endblock content %}

@@ -1,0 +1,123 @@
+{% include "navbar.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .update-profile-container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .update-profile-header {
+            text-align: center;
+            padding: 20px;
+            background-color: #3498db;
+            color: #fff;
+        }
+
+        .form-group {
+            padding: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .update-profile-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #2ecc71;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .update-profile-button:hover {
+            background-color: #27ae60;
+        }
+    </style>
+</head>
+<body>
+
+<div class="update-profile-container">
+    <div class="update-profile-header">
+        <h1>Update Profile</h1>
+
+        {% if messages %}
+        {% for message in messages %}
+        {% if message.tags == 'error' %}
+        <p> {{message}}</p>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+        
+    </div>
+
+    <form action="{% url "EditProfilePage" %}" method='post' enctype="multipart/form-data" class="form-group">
+        {% csrf_token %}
+        <label>User ID:</label>
+        <input type="text" id="first_name" name="user_id" value="{{ request.user.id }}" required>
+
+        <label for="first_name">First Name:</label>
+        <input type="text" id="first_name" name="first_name" value="{{ request.user.first_name }}" required>
+
+        <label for="last_name">Last Name:</label>
+        <input type="text" id="last_name" name="last_name" value="{{ request.user.last_name }}" required>
+
+        <label for="display_name">Display Name:</label>
+        <input type="text" id="display_name" name="display_name" value="{{ request.user.display_name }}" required>
+
+        <label for="about">About:</label>
+        <input type="text" id="about" name="about" value="{{ request.user.about }}">
+
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" value="{{ request.user.username }}" required readonly>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" value="{{ request.user.email }}" required readonly>
+
+        <label for="profile_picture">Profile Picture:</label>
+        <input type="file" id="profile_picture" name="profile_picture">
+        
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+
+        <label for="nid">NID:</label>
+        <input type="text" id="nid" name="nid" value='{{request.user.profile.nid}}' required>
+        
+        <input type="submit" value="Update Profile" class="update-profile-button">
+    </form>
+</div>
+
+</body>
+</html>
+
+
+{% endblock content %}

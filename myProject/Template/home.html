@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="Free Web tutorials">
+    <meta name="keywords" content="HTML, CSS, JavaScript">
+    <meta name="author" content="maheraj">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HomeFlow</title>
+    <!-- Favicon -->
+    <!-- <link href="" rel="icon" /> -->
+
+
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Bootstrap stylesheet -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
+    
+    <!-- Stylesheet -->
+    <!-- <link rel="stylesheet" href="assets/css/style.css"> -->
+
+    <!-- Responsive stylesheet -->
+    <!-- <link rel="stylesheet" href="assets/css/responsive.css"> -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Custom CSS for Search Section */
+
+        .location{
+          background-color: #00bcd4;
+        }
+        .location a {
+          text-decoration: none;
+          color: #fff;
+          background-color: #007bff;
+          padding: 10px 10px;
+          align-items: center;
+          position: relative;
+        }
+
+
+        {% comment %} .search-section {
+          background-color: #00bcd4;
+          padding: 50px;
+        }
+
+        .input-group {
+            display: flex;
+            align-items: stretch;
+            width: 50%;
+            margin: auto; /* Center the input group horizontally */
+        }
+
+        .search-section input {
+            flex: 1;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 40px;
+        }
+
+        .search-section button {
+            padding: 8px 15px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 40px;
+            cursor: pointer;
+        } {% endcomment %}
+        .search-bottom{
+            background-color: #00bcd4;
+            padding: 20px;
+        }
+
+        /* Main content styling */
+        #main-content {
+            background-color: #f8f9fa; /* Adjust as needed */
+            padding: 20px;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .category-item {
+            text-align: center;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        /* Quick Links styling */
+       /* Additional styles for "See More" functionality */
+       .about-section {
+            margin-top: 20px;
+            max-height: 150px;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header id="nav-content">
+        {% include "navbar.html" %}
+      <!-- Search Option at the Bottom -->
+    <div class="search-bottom">
+        <div class="container">
+            <div class="input-group">
+                
+                <input type="text" class="form-control" placeholder="What are you looking for ?">
+                <button class="btn btn-primary" type="button">Search</button>
+            </div>
+        </div>
+    </div>
+  </header>
+    </header>
+
+    <!-- Main Content -->
+    <div id="main-content">
+        <h2>Browse Items by Category</h2>
+
+        <div class="category-grid">
+            <div class="category-item">
+                <i class="fas fa-user"></i>
+                <p>Bachelor</p>
+            </div>
+
+            <div class="category-item">
+                <i class="fas fa-users"></i>
+                <p>Family</p>
+            </div>
+
+            <div class="category-item">
+                <i class="fas fa-hotel"></i>
+                <p>Hotel</p>
+            </div>
+
+            <div class="category-item">
+                <i class="fas fa-home"></i>
+                <p>Home Goods</p>
+            </div>
+
+            <div class="category-item">
+                <i class="fas fa-car"></i>
+                <p>Transportation</p>
+            </div>
+            <div class="category-item">
+              <i class="fa-solid fa-briefcase"></i>
+              <p>Job</p>
+          </div>
+        </div>
+    </div>
+    <div id="main-content">
+      <!-- About Section -->
+      <div class="about-section">
+        <p>
+          Welcome to HomeFlow - your ultimate destination for all things home-related. 
+          Whether you're renting a home, searching for home, buying or selling used home goods, 
+          or renting a truck for your move, HomeFlow is here to make your journey seamless and enjoyable.
+        </p>
+    </div>
+
+
+    {% include "footer.html" %}
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
